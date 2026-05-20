@@ -1,0 +1,12 @@
+Upload the contents of this folder into `public_html/api` on Hostinger.
+
+Important:
+- This folder intentionally excludes the real `.env` file.
+- Keep your existing `public_html/api/.env` on the server, or recreate it there with your live credentials and API keys.
+- This folder also excludes the old empty `api/` duplicate directory from the workspace backend.
+
+Suggested steps:
+1. Open Hostinger File Manager.
+2. Go to `public_html/api`.
+3. Upload or paste all files and folders from `backend-upload`.
+4. Do not delete or replace the live `.env` unless you want to update its values.

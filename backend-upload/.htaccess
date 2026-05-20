@@ -1,0 +1,9 @@
+Options -Indexes
+
+<Files ".env">
+    Require all denied
+</Files>
+
+<FilesMatch "^(composer\.(json|lock)|\.gitignore)$">
+    Require all denied
+</FilesMatch>
