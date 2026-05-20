@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS reminders (
         ON DELETE CASCADE,
     CONSTRAINT fk_reminders_lead
         FOREIGN KEY (lead_id) REFERENCES leads(id)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS app_feedback (
