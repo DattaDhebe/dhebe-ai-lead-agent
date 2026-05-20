@@ -66,24 +66,30 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(labelText: 'Email (optional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Email (optional)',
+                ),
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 value: _selectedSource,
                 decoration: const InputDecoration(labelText: 'Source'),
                 items: AppConstants.leadSources
-                    .map((source) => DropdownMenuItem(
-                          value: source,
-                          child: Text(source),
-                        ))
+                    .map(
+                      (source) =>
+                          DropdownMenuItem(value: source, child: Text(source)),
+                    )
                     .toList(),
-                onChanged: (value) => setState(() => _selectedSource = value ?? _selectedSource),
+                onChanged: (value) {
+                  setState(() => _selectedSource = value ?? _selectedSource);
+                },
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _serviceController,
-                decoration: const InputDecoration(labelText: 'Service interested'),
+                decoration: const InputDecoration(
+                  labelText: 'Service interested',
+                ),
                 validator: _required,
               ),
               const SizedBox(height: 12),
@@ -91,7 +97,9 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
                 controller: _messageController,
                 minLines: 4,
                 maxLines: 6,
-                decoration: const InputDecoration(labelText: 'Customer message'),
+                decoration: const InputDecoration(
+                  labelText: 'Customer message',
+                ),
                 validator: _required,
               ),
               const SizedBox(height: 12),
@@ -99,18 +107,24 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
                 value: _selectedStatus,
                 decoration: const InputDecoration(labelText: 'Status'),
                 items: AppConstants.leadStatuses
-                    .map((status) => DropdownMenuItem(
-                          value: status,
-                          child: Text(AppConstants.prettifyStatus(status)),
-                        ))
+                    .map(
+                      (status) => DropdownMenuItem(
+                        value: status,
+                        child: Text(AppConstants.prettifyStatus(status)),
+                      ),
+                    )
                     .toList(),
-                onChanged: (value) => setState(() => _selectedStatus = value ?? _selectedStatus),
+                onChanged: (value) {
+                  setState(() => _selectedStatus = value ?? _selectedStatus);
+                },
               ),
               const SizedBox(height: 12),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Next follow-up'),
-                subtitle: Text(AppConstants.formatReadableDateTime(_nextFollowUpAt)),
+                subtitle: Text(
+                  AppConstants.formatReadableDateTime(_nextFollowUpAt),
+                ),
                 trailing: IconButton(
                   onPressed: _pickFollowUpDateTime,
                   icon: const Icon(Icons.event_rounded),
@@ -180,17 +194,17 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
     }
 
     final success = await context.read<AppState>().createLead({
-      'name' => _nameController.text.trim(),
-      'phone' => _phoneController.text.trim(),
-      'email' => _emailController.text.trim(),
-      'source' => _selectedSource,
-      'service_interested' => _serviceController.text.trim(),
-      'customer_message' => _messageController.text.trim(),
-      'status' => _selectedStatus,
+      'name': _nameController.text.trim(),
+      'phone': _phoneController.text.trim(),
+      'email': _emailController.text.trim(),
+      'source': _selectedSource,
+      'service_interested': _serviceController.text.trim(),
+      'customer_message': _messageController.text.trim(),
+      'status': _selectedStatus,
       'next_follow_up_at': _nextFollowUpAt == null
           ? ''
           : AppConstants.formatApiDateTime(_nextFollowUpAt!),
-      'notes' => _notesController.text.trim(),
+      'notes': _notesController.text.trim(),
     });
 
     if (!mounted || !success) {

@@ -11,11 +11,9 @@ import '../models/user_model.dart';
 import '../services/api_service.dart';
 
 class AppState extends ChangeNotifier {
-  AppState({
-    SecureStorageService? storageService,
-    ApiService? apiService,
-  })  : _storageService = storageService ?? SecureStorageService(),
-        _apiService = apiService ?? ApiService();
+  AppState({SecureStorageService? storageService, ApiService? apiService})
+    : _storageService = storageService ?? SecureStorageService(),
+      _apiService = apiService ?? ApiService();
 
   final SecureStorageService _storageService;
   final ApiService _apiService;
@@ -60,10 +58,7 @@ class AppState extends ChangeNotifier {
     return _execute<bool>(() async {
       final response = await _apiService.post(
         'auth/login.php',
-        body: {
-          'email' => email.trim(),
-          'password' => password,
-        },
+        body: {'email': email.trim(), 'password': password},
       );
 
       final data = response['data'] as Map<String, dynamic>;
@@ -84,11 +79,11 @@ class AppState extends ChangeNotifier {
       final response = await _apiService.post(
         'auth/register.php',
         body: {
-          'name' => name.trim(),
-          'email' => email.trim(),
-          'phone' => phone.trim(),
-          'password' => password,
-          'business_name' => businessName.trim(),
+          'name': name.trim(),
+          'email': email.trim(),
+          'phone': phone.trim(),
+          'password': password,
+          'business_name': businessName.trim(),
         },
       );
 
@@ -133,21 +128,25 @@ class AppState extends ChangeNotifier {
   }
 
   Future<bool> fetchLeads({bool silent = false}) async {
-    return _execute<bool>(() async {
-      final response = await _apiService.get('leads/list.php');
-      final data = response['data'] as Map<String, dynamic>;
-      final items = (data['leads'] as List<dynamic>? ?? const [])
-          .map((item) => LeadModel.fromJson(item as Map<String, dynamic>))
-          .toList();
-      items.sort(_sortLeads);
-      leads = items;
+    return _execute<bool>(
+      () async {
+        final response = await _apiService.get('leads/list.php');
+        final data = response['data'] as Map<String, dynamic>;
+        final items = (data['leads'] as List<dynamic>? ?? const [])
+            .map((item) => LeadModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+        items.sort(_sortLeads);
+        leads = items;
 
-      if (!silent) {
-        notifyListeners();
-      }
+        if (!silent) {
+          notifyListeners();
+        }
 
-      return true;
-    }, fallback: false, silent: silent);
+        return true;
+      },
+      fallback: false,
+      silent: silent,
+    );
   }
 
   Future<Map<String, dynamic>?> fetchLeadBundle(int leadId) async {
@@ -165,9 +164,13 @@ class AppState extends ChangeNotifier {
 
   Future<bool> createLead(Map<String, dynamic> payload) async {
     return _execute<bool>(() async {
-      final response = await _apiService.post('leads/create.php', body: payload);
+      final response = await _apiService.post(
+        'leads/create.php',
+        body: payload,
+      );
       final lead = LeadModel.fromJson(
-        (response['data'] as Map<String, dynamic>)['lead'] as Map<String, dynamic>,
+        (response['data'] as Map<String, dynamic>)['lead']
+            as Map<String, dynamic>,
       );
       _upsertLead(lead);
       leads.sort(_sortLeads);
@@ -193,18 +196,18 @@ class AppState extends ChangeNotifier {
       await _apiService.post(
         'leads/update.php',
         body: {
-          'id' => id,
-          'name' => name.trim(),
-          'phone' => phone.trim(),
-          'email' => email.trim(),
-          'source' => source.trim(),
-          'service_interested' => serviceInterested.trim(),
-          'customer_message' => customerMessage.trim(),
-          'status' => status,
+          'id': id,
+          'name': name.trim(),
+          'phone': phone.trim(),
+          'email': email.trim(),
+          'source': source.trim(),
+          'service_interested': serviceInterested.trim(),
+          'customer_message': customerMessage.trim(),
+          'status': status,
           'next_follow_up_at': nextFollowUpAt == null
               ? ''
               : AppConstants.formatApiDateTime(nextFollowUpAt),
-          'notes' => notes.trim(),
+          'notes': notes.trim(),
           'new_note': newNote?.trim() ?? '',
         },
       );
@@ -219,7 +222,9 @@ class AppState extends ChangeNotifier {
     return _execute<bool>(() async {
       await _apiService.post('leads/delete.php', body: {'id': id});
       leads.removeWhere((lead) => lead.id == id);
-      todayReminders = todayReminders.where((item) => item.leadId != id).toList();
+      todayReminders = todayReminders
+          .where((item) => item.leadId != id)
+          .toList();
       notifyListeners();
       return true;
     }, fallback: false);
@@ -236,11 +241,11 @@ class AppState extends ChangeNotifier {
       final response = await _apiService.post(
         'ai/generate-reply.php',
         body: {
-          'lead_id' => leadId,
-          'customer_message' => customerMessage.trim(),
-          'customer_name' => customerName.trim(),
-          'service_interested' => serviceInterested.trim(),
-          'source' => source.trim(),
+          'lead_id': leadId,
+          'customer_message': customerMessage.trim(),
+          'customer_name': customerName.trim(),
+          'service_interested': serviceInterested.trim(),
+          'source': source.trim(),
         },
       );
 
@@ -252,19 +257,23 @@ class AppState extends ChangeNotifier {
   }
 
   Future<bool> fetchTodayReminders({bool silent = false}) async {
-    return _execute<bool>(() async {
-      final response = await _apiService.get('reminders/today.php');
-      final data = response['data'] as Map<String, dynamic>;
-      todayReminders = (data['reminders'] as List<dynamic>? ?? const [])
-          .map((item) => ReminderModel.fromJson(item as Map<String, dynamic>))
-          .toList();
+    return _execute<bool>(
+      () async {
+        final response = await _apiService.get('reminders/today.php');
+        final data = response['data'] as Map<String, dynamic>;
+        todayReminders = (data['reminders'] as List<dynamic>? ?? const [])
+            .map((item) => ReminderModel.fromJson(item as Map<String, dynamic>))
+            .toList();
 
-      if (!silent) {
-        notifyListeners();
-      }
+        if (!silent) {
+          notifyListeners();
+        }
 
-      return true;
-    }, fallback: false, silent: silent);
+        return true;
+      },
+      fallback: false,
+      silent: silent,
+    );
   }
 
   Future<bool> createReminder({
@@ -277,10 +286,10 @@ class AppState extends ChangeNotifier {
       await _apiService.post(
         'reminders/create.php',
         body: {
-          'title' => title.trim(),
-          'lead_id' => leadId,
+          'title': title.trim(),
+          'lead_id': leadId,
           'reminder_at': AppConstants.formatApiDateTime(reminderAt),
-          'notes' => notes.trim(),
+          'notes': notes.trim(),
         },
       );
       await fetchTodayReminders(silent: true);
@@ -290,18 +299,23 @@ class AppState extends ChangeNotifier {
   }
 
   Future<bool> loadBusinessProfile({bool silent = false}) async {
-    return _execute<bool>(() async {
-      final response = await _apiService.get('business-profile/get.php');
-      businessProfile = BusinessProfileModel.fromJson(
-        (response['data'] as Map<String, dynamic>)['profile'] as Map<String, dynamic>,
-      );
+    return _execute<bool>(
+      () async {
+        final response = await _apiService.get('business-profile/get.php');
+        businessProfile = BusinessProfileModel.fromJson(
+          (response['data'] as Map<String, dynamic>)['profile']
+              as Map<String, dynamic>,
+        );
 
-      if (!silent) {
-        notifyListeners();
-      }
+        if (!silent) {
+          notifyListeners();
+        }
 
-      return true;
-    }, fallback: false, silent: silent);
+        return true;
+      },
+      fallback: false,
+      silent: silent,
+    );
   }
 
   Future<bool> saveBusinessProfile(BusinessProfileModel profile) async {
@@ -316,17 +330,11 @@ class AppState extends ChangeNotifier {
     }, fallback: false);
   }
 
-  Future<bool> submitFeedback({
-    required String message,
-    int? rating,
-  }) async {
+  Future<bool> submitFeedback({required String message, int? rating}) async {
     return _execute<bool>(() async {
       await _apiService.post(
         'feedback/create.php',
-        body: {
-          'message' => message.trim(),
-          'rating' => rating,
-        },
+        body: {'message': message.trim(), 'rating': rating},
       );
       return true;
     }, fallback: false);

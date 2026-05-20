@@ -81,16 +81,16 @@ class BusinessProfileModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'business_name' => businessName,
-      'owner_name' => ownerName,
-      'business_phone' => businessPhone,
-      'business_email' => businessEmail,
-      'website' => website,
-      'address' => address,
-      'services_text' => servicesText,
-      'faq_text' => faqText,
-      'tone_notes' => toneNotes,
-      'policy_notes' => policyNotes,
+      'business_name': businessName,
+      'owner_name': ownerName,
+      'business_phone': businessPhone,
+      'business_email': businessEmail,
+      'website': website,
+      'address': address,
+      'services_text': servicesText,
+      'faq_text': faqText,
+      'tone_notes': toneNotes,
+      'policy_notes': policyNotes,
     };
   }
 }

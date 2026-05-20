@@ -48,8 +48,8 @@ class ApiService {
 
   Map<String, String> _headers() {
     final headers = <String, String>{
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
     };
 
     if (_token != null && _token!.isNotEmpty) {
