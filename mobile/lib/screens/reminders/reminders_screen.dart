@@ -68,7 +68,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<int?>(
-                      value: _selectedLeadId,
+                      initialValue: _selectedLeadId,
                       decoration: const InputDecoration(
                         labelText: 'Linked lead',
                       ),
@@ -80,12 +80,13 @@ class _RemindersScreenState extends State<RemindersScreen> {
                         ...appState.leads.map(
                           (lead) => DropdownMenuItem<int?>(
                             value: lead.id,
-                            child: Text('${lead.name} • ${lead.phone}'),
+                            child: Text('${lead.name} - ${lead.phone}'),
                           ),
                         ),
                       ],
-                      onChanged: (value) =>
-                          setState(() => _selectedLeadId = value),
+                      onChanged: (value) {
+                        setState(() => _selectedLeadId = value);
+                      },
                     ),
                     const SizedBox(height: 12),
                     ListTile(

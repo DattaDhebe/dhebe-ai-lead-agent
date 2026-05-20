@@ -135,7 +135,7 @@ class _LeadDetailsScreenState extends State<LeadDetailsScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: _status,
+                  initialValue: _status,
                   decoration: const InputDecoration(labelText: 'Status'),
                   items: AppConstants.leadStatuses
                       .map(
@@ -145,8 +145,9 @@ class _LeadDetailsScreenState extends State<LeadDetailsScreen> {
                         ),
                       )
                       .toList(),
-                  onChanged: (value) =>
-                      setState(() => _status = value ?? _status),
+                  onChanged: (value) {
+                    setState(() => _status = value ?? _status);
+                  },
                 ),
                 const SizedBox(height: 12),
                 ListTile(
@@ -247,7 +248,7 @@ class _LeadDetailsScreenState extends State<LeadDetailsScreen> {
                               '',
                         ),
                         subtitle: Text(
-                          '${item['provider'] ?? ''} • ${item['created_at'] ?? ''}',
+                          '${item['provider'] ?? ''} - ${item['created_at'] ?? ''}',
                         ),
                       ),
                     ),

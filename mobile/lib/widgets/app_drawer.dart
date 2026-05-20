@@ -47,7 +47,7 @@ class AppDrawer extends StatelessWidget {
                     : appState.currentUser?.email ?? 'dhebe.com',
               ),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white.withOpacity(0.15),
+                backgroundColor: Colors.white.withValues(alpha: 0.15),
                 child: const Icon(
                   Icons.support_agent,
                   color: Colors.white,

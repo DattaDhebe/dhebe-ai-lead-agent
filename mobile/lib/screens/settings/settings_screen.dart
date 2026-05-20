@@ -39,30 +39,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SizedBox(height: 18),
           Card(
-            child: Column(
-              children: [
-                RadioListTile<ThemeMode>(
-                  value: ThemeMode.system,
-                  groupValue: appState.themeMode,
-                  title: const Text('System theme'),
-                  onChanged: (value) =>
-                      context.read<AppState>().setThemeMode(value!),
-                ),
-                RadioListTile<ThemeMode>(
-                  value: ThemeMode.light,
-                  groupValue: appState.themeMode,
-                  title: const Text('Light theme'),
-                  onChanged: (value) =>
-                      context.read<AppState>().setThemeMode(value!),
-                ),
-                RadioListTile<ThemeMode>(
-                  value: ThemeMode.dark,
-                  groupValue: appState.themeMode,
-                  title: const Text('Dark theme'),
-                  onChanged: (value) =>
-                      context.read<AppState>().setThemeMode(value!),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Theme',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SegmentedButton<ThemeMode>(
+                    segments: const [
+                      ButtonSegment<ThemeMode>(
+                        value: ThemeMode.system,
+                        label: Text('System'),
+                        icon: Icon(Icons.phone_android_rounded),
+                      ),
+                      ButtonSegment<ThemeMode>(
+                        value: ThemeMode.light,
+                        label: Text('Light'),
+                        icon: Icon(Icons.light_mode_rounded),
+                      ),
+                      ButtonSegment<ThemeMode>(
+                        value: ThemeMode.dark,
+                        label: Text('Dark'),
+                        icon: Icon(Icons.dark_mode_rounded),
+                      ),
+                    ],
+                    selected: {appState.themeMode},
+                    onSelectionChanged: (selection) {
+                      context.read<AppState>().setThemeMode(selection.first);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 18),

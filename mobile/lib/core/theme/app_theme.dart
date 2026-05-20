@@ -62,14 +62,16 @@ class AppTheme {
           borderSide: BorderSide(color: colorScheme.primary, width: 1.4),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         color: brightness == Brightness.light
             ? Colors.white
             : colorScheme.surfaceContainer,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
-          side: BorderSide(color: colorScheme.outlineVariant.withOpacity(0.3)),
+          side: BorderSide(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+          ),
         ),
       ),
       chipTheme: base.chipTheme.copyWith(

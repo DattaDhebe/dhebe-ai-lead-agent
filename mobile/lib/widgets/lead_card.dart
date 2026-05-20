@@ -35,7 +35,7 @@ class LeadCard extends StatelessWidget {
                   ),
                   Chip(
                     label: Text(AppConstants.prettifyStatus(lead.status)),
-                    backgroundColor: statusColor.withOpacity(0.12),
+                    backgroundColor: statusColor.withValues(alpha: 0.12),
                     side: BorderSide.none,
                     labelStyle: TextStyle(color: statusColor),
                   ),

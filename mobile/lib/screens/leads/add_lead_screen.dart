@@ -72,7 +72,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _selectedSource,
+                initialValue: _selectedSource,
                 decoration: const InputDecoration(labelText: 'Source'),
                 items: AppConstants.leadSources
                     .map(
@@ -104,7 +104,7 @@ class _AddLeadScreenState extends State<AddLeadScreen> {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _selectedStatus,
+                initialValue: _selectedStatus,
                 decoration: const InputDecoration(labelText: 'Status'),
                 items: AppConstants.leadStatuses
                     .map(

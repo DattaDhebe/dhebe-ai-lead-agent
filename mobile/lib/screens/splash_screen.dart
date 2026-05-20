@@ -30,7 +30,7 @@ class SplashScreen extends StatelessWidget {
                   height: 74,
                   width: 74,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.16),
+                    color: Colors.white.withValues(alpha: 0.16),
                     borderRadius: BorderRadius.circular(22),
                   ),
                   child: const Icon(
@@ -51,7 +51,7 @@ class SplashScreen extends StatelessWidget {
                 Text(
                   'Lead follow-up, reminders, and AI-assisted replies for small businesses.',
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: Colors.white.withOpacity(0.88),
+                    color: Colors.white.withValues(alpha: 0.88),
                   ),
                 ),
                 const Spacer(),
