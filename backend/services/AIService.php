@@ -80,7 +80,7 @@ final class AIService
                 $userId,
                 $leadId,
                 'gemini',
-                Env::get('GEMINI_MODEL', 'gemini-2.0-flash'),
+                Env::get('GEMINI_MODEL', 'gemini-2.5-flash'),
                 $customerMessage,
                 'failed',
                 $exception->getMessage()

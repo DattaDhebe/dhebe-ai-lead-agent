@@ -10,7 +10,7 @@ final class GeminiService
     public function generateReply(string $prompt): array
     {
         $apiKey = Env::get('GEMINI_API_KEY', '');
-        $model = Env::get('GEMINI_MODEL', 'gemini-2.0-flash');
+        $model = Env::get('GEMINI_MODEL', 'gemini-2.5-flash');
 
         if ($apiKey === '') {
             Response::error('Gemini API key is not configured.', 500);
