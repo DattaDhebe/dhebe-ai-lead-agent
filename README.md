@@ -1,5 +1,13 @@
 # Dhebe AI Lead Agent
 
+**A practical follow-up workflow for small businesses.**
+
+Flutter · PHP · MySQL · Gemini
+
+[Features](#features) · [Mobile setup](#flutter-setup-commands) · [Backend setup](#backend-setup-steps) · [Deployment](docs/hostinger-deployment.md)
+
+> **Project status:** MVP. AI replies are drafts that the user reviews and sends manually.
+
 ## Project overview
 
 Dhebe AI Lead Agent is an MVP Android lead follow-up app for small businesses. It uses a Flutter mobile app for the client experience and a plain PHP + MySQL backend for authentication, lead management, reminders, business profile data, feedback collection, and Gemini-powered reply drafting.
@@ -62,36 +70,36 @@ The app is designed around a safe WhatsApp workflow:
 
 ```powershell
 cd mobile
-F:\apps\android\flutter\bin\flutter.bat pub get
-F:\apps\android\flutter\bin\flutter.bat run
+flutter pub get
+flutter run
 ```
 
 Release build:
 
 ```powershell
 cd mobile
-F:\apps\android\flutter\bin\flutter.bat build apk --release
+flutter build apk --release
 ```
 
 ## Backend setup steps
 
 1. Copy `backend/.env.example` to `backend/.env`.
 2. Fill in your Hostinger MySQL credentials.
-3. Set `DB_NAME=u942725982_ai_lead_agent` unless you intentionally created a different database.
+3. Set `DB_NAME=your_database_name` unless you intentionally created a different database.
 4. Generate a long `JWT_SECRET`.
 5. Add your Gemini API key to `GEMINI_API_KEY`.
 6. Keep `CORS_ALLOWED_ORIGIN=*` for this mobile MVP unless you later add a browser-based admin panel.
 
 ## Hostinger deployment steps
 
-Full guide: [docs/hostinger-deployment.md](/f:/apps/android/dhebe-ai-lead-agent/docs/hostinger-deployment.md)
+Full guide: [docs/hostinger-deployment.md](docs/hostinger-deployment.md)
 
 Short version:
 
 1. Create or confirm the MySQL database in Hostinger.
-2. Import [database/setup.sql](/f:/apps/android/dhebe-ai-lead-agent/database/setup.sql) in phpMyAdmin.
+2. Import [database/setup.sql](database/setup.sql) in phpMyAdmin.
 3. Copy `backend/.env.example` to `backend/.env` and update it.
-4. Upload the contents of [backend](/f:/apps/android/dhebe-ai-lead-agent/backend) into `public_html/api`.
+4. Upload the contents of [backend](backend) into `public_html/api`.
 5. Confirm these live paths exist:
    - `public_html/api/index.php`
    - `public_html/api/auth/login.php`
@@ -101,10 +109,10 @@ Short version:
 
 ## MySQL setup steps
 
-1. Create a database named `u942725982_ai_lead_agent` in Hostinger, or update `.env` if you use a different name.
+1. Create a database named `your_database_name` in Hostinger, or update `.env` if you use a different name.
 2. Open phpMyAdmin for that database.
-3. Import [database/setup.sql](/f:/apps/android/dhebe-ai-lead-agent/database/setup.sql).
-4. Optionally import [database/seed.sql](/f:/apps/android/dhebe-ai-lead-agent/database/seed.sql) after registering a real user.
+3. Import [database/setup.sql](database/setup.sql).
+4. Optionally import [database/seed.sql](database/seed.sql) after registering a real user.
 
 ## Gemini API key setup
 
