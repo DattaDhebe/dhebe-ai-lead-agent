@@ -1,8 +1,6 @@
-# Dhebe AI Lead Agent
-
-**A practical follow-up workflow for small businesses.**
-
-Flutter · PHP · MySQL · Gemini
+<p align="center">
+  <img src="docs/assets/project-banner.svg" alt="Dhebe AI Lead Agent — A practical workflow for business follow-up." width="100%">
+</p>
 
 [Features](#features) · [Mobile setup](#flutter-setup-commands) · [Backend setup](#backend-setup-steps) · [Deployment](docs/hostinger-deployment.md)
 
